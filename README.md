@@ -42,3 +42,12 @@ $ curl "http://localhost:8080/actuator/health"
 ```
 
 Missing, non-numeric or non-finite (`NaN`, `Infinity`) parameters return HTTP 400 with the same error structure.
+
+## Docker
+
+Multi-stage build: a Maven/JDK 21 stage builds the JAR, and a slim `eclipse-temurin:21-jre-alpine` stage runs it as a non-root user.
+
+```bash
+docker build -t calculator .
+docker run -p 8080:8080 calculator
+```
