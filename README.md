@@ -12,7 +12,7 @@ Calculator REST API built with Spring Boot, wrapped in a CI/CD pipeline: GitHub 
 ```bash
 mvn clean package -DskipTests   # build the executable JAR -> target/calculator.jar
 mvn test                        # run unit + integration tests (JUnit XML in target/surefire-reports/)
-java -jar target/calculator.jar # start on http://localhost:8080 (override with SERVER_PORT)
+java -jar target/calculator.jar # start on http://localhost:8085 (override with SERVER_PORT)
 ```
 
 ## API
@@ -28,16 +28,16 @@ java -jar target/calculator.jar # start on http://localhost:8080 (override with 
 ### Examples
 
 ```bash
-$ curl "http://localhost:8080/api/v1/add?a=2&b=3"
+$ curl "http://localhost:8085/api/v1/add?a=2&b=3"
 {"operation":"add","a":2.0,"b":3.0,"result":5.0}
 
-$ curl "http://localhost:8080/api/v1/divide?a=5&b=0"
+$ curl "http://localhost:8085/api/v1/divide?a=5&b=0"
 {"status":400,"error":"Bad Request","message":"Division by zero is not allowed"}
 
-$ curl "http://localhost:8080/api/v1/add?a=abc&b=3"
+$ curl "http://localhost:8085/api/v1/add?a=abc&b=3"
 {"status":400,"error":"Bad Request","message":"Parameter 'a' must be a number"}
 
-$ curl "http://localhost:8080/actuator/health"
+$ curl "http://localhost:8085/actuator/health"
 {"groups":["liveness","readiness"],"status":"UP"}
 ```
 
@@ -49,5 +49,5 @@ Multi-stage build: a Maven/JDK 21 stage builds the JAR, and a slim `eclipse-temu
 
 ```bash
 docker build -t calculator .
-docker run -p 8080:8080 calculator
+docker run -p 8085:8085 calculator
 ```

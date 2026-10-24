@@ -18,5 +18,5 @@ RUN addgroup -S app && adduser -S app -G app
 COPY --from=build --chown=app:app /app/target/calculator.jar app.jar
 USER app
 
-EXPOSE 8080
+EXPOSE 8085
 ENTRYPOINT ["java", "-jar", "app.jar"]
