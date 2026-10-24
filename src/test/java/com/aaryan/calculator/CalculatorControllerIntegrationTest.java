@@ -82,6 +82,13 @@ class CalculatorControllerIntegrationTest {
     }
 
     @Test
+    void overflowingResultReturns400() throws Exception {
+        mockMvc.perform(get("/api/v1/multiply").param("a", "1e308").param("b", "10"))
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.message").value("Result is out of range"));
+    }
+
+    @Test
     void healthEndpointIsUp() throws Exception {
         mockMvc.perform(get("/actuator/health"))
                 .andExpect(status().isOk())

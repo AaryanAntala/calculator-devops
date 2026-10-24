@@ -42,6 +42,10 @@ public class CalculatorController {
         if (!Double.isFinite(a) || !Double.isFinite(b)) {
             throw new IllegalArgumentException("Parameters 'a' and 'b' must be finite numbers");
         }
-        return new CalculationResponse(operation, a, b, op.applyAsDouble(a, b));
+        double result = op.applyAsDouble(a, b);
+        if (!Double.isFinite(result)) {
+            throw new IllegalArgumentException("Result is out of range");
+        }
+        return new CalculationResponse(operation, a, b, result);
     }
 }
