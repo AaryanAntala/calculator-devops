@@ -71,11 +71,13 @@ pipeline {
 
     post {
         success {
-            emailext subject: "SUCCESS: ${env.JOB_NAME} #${env.BUILD_NUMBER}",
+            emailext to: '$DEFAULT_RECIPIENTS',
+                     subject: "SUCCESS: ${env.JOB_NAME} #${env.BUILD_NUMBER}",
                      body: "Build #${env.BUILD_NUMBER} passed and image ${env.IMAGE}:${env.BUILD_NUMBER} is deployed.\n\n${env.BUILD_URL}"
         }
         failure {
-            emailext subject: "FAILURE: ${env.JOB_NAME} #${env.BUILD_NUMBER}",
+            emailext to: '$DEFAULT_RECIPIENTS',
+                     subject: "FAILURE: ${env.JOB_NAME} #${env.BUILD_NUMBER}",
                      body: "Build #${env.BUILD_NUMBER} failed.\n\nConsole output: ${env.BUILD_URL}console"
         }
     }
