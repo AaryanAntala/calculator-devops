@@ -64,6 +64,8 @@ pipeline {
         stage('Deploy') {
             steps {
                 sh 'IMAGE_TAG=$BUILD_NUMBER docker compose up -d --wait'
+                // pick up nginx.conf changes without downtime
+                sh 'docker compose exec -T nginx nginx -s reload'
                 sh 'curl -fs http://localhost/actuator/health'
             }
         }
