@@ -82,6 +82,16 @@ class CalculatorControllerIntegrationTest {
     }
 
     @Test
+    void nonFiniteSecondParameterReturns400() throws Exception {
+        mockMvc.perform(get("/api/v1/add").param("a", "1").param("b", "NaN"))
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.message").value("Parameters 'a' and 'b' must be finite numbers"));
+        mockMvc.perform(get("/api/v1/divide").param("a", "1").param("b", "Infinity"))
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.message").value("Parameters 'a' and 'b' must be finite numbers"));
+    }
+
+    @Test
     void overflowingResultReturns400() throws Exception {
         mockMvc.perform(get("/api/v1/multiply").param("a", "1e308").param("b", "10"))
                 .andExpect(status().isBadRequest())
