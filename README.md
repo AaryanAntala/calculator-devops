@@ -189,3 +189,4 @@ In the repository settings, add a webhook with the payload URL `https://<your-ng
 - The container runs as a non-root user.
 - The calculator is reachable only through the Nginx proxy; its port is not published.
 - Only the `health` Actuator endpoint is exposed.
+
